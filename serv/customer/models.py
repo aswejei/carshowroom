@@ -7,3 +7,6 @@ class Customer(models.Model):
     surname = models.CharField(verbose_name='Фамилия', max_length=20)
     balance = models.FloatField(verbose_name='Баланс')
     is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f'{self.name} {self.surname}'

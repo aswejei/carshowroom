@@ -15,6 +15,9 @@ class Supplier(models.Model):
     )
     is_active = models.BooleanField(default=True)
 
+    def __str__(self):
+        return f'{self.name} (founded: {self.date_founded})'
+
 
 class Car(models.Model):
     car_body_choices = [
@@ -48,6 +51,9 @@ class Car(models.Model):
     )
     is_active = models.BooleanField(default=True)
 
+    def __str__(self):
+        return f'{self.brand} {self.model} (color: {self.color})'
+
 
 class CarPriceRelation(models.Model):
     car = models.OneToOneField(
@@ -69,6 +75,9 @@ class CarPriceRelationSupplier(CarPriceRelation):
         verbose_name='Поставщик'
     )
     is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f'{self.car.brand} {self.car.model} - {self.price}$ : {self.supplier.name}'
 
     class Meta:
         ordering = ['supplier', 'car']

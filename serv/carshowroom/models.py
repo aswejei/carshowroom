@@ -18,6 +18,9 @@ class CarShowroom(models.Model):
     )
     is_active = models.BooleanField(default=True)
 
+    def __str__(self):
+        return f'{self.name} ({self.location})'
+
 
 class CustomerShowroomOffers(models.Model):
     customer = models.OneToOneField(
@@ -48,6 +51,9 @@ class CarPriceRelationShowroom(CarPriceRelation):
         verbose_name='Автосалон'
     )
     is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f'{self.car.brand} {self.car.model} - {self.price}$ : {self.showroom.name}'
 
     class Meta:
         ordering = ['showroom', 'car']
