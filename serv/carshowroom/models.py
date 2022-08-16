@@ -26,7 +26,8 @@ class CustomerShowroomOffers(models.Model):
     customer = models.OneToOneField(
         'customer.Customer',
         on_delete=models.PROTECT,
-        verbose_name='Покупатель'
+        verbose_name='Покупатель',
+        related_name='offers'
     )
     showroom = models.OneToOneField(
         CarShowroom,
@@ -48,7 +49,8 @@ class CarPriceRelationShowroom(CarPriceRelation):
     showroom = models.ForeignKey(
         CarShowroom,
         on_delete=models.CASCADE,
-        verbose_name='Автосалон'
+        verbose_name='Автосалон',
+        related_name='cars'
     )
     is_active = models.BooleanField(default=True)
 

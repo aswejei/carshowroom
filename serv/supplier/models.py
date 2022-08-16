@@ -72,7 +72,8 @@ class CarPriceRelationSupplier(CarPriceRelation):
     supplier = models.ForeignKey(
         Supplier,
         on_delete=models.CASCADE,
-        verbose_name='Поставщик'
+        verbose_name='Поставщик',
+        related_name='cars'
     )
     is_active = models.BooleanField(default=True)
 
