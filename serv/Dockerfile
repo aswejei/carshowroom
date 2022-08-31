@@ -8,13 +8,14 @@ WORKDIR /app
 
 RUN python3 -m pip install --upgrade pip && pip install pipenv
 
+RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
+
 COPY . /app/
 #python -m pip install --upgrade pip &&
 #--dev --system --deploy
-RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
 
 RUN pipenv install --system --deploy --ignore-pipfile
-#разкомментить если хуйня выше не шпилит
+#раcкомментить если хуйня выше не шпилит
 #RUN pipenv lock && pipenv requirements > requirements.txt && python3 -m pip install -r requirements.txt
 #    cd .. && apk --purge del .build-deps
 
