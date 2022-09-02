@@ -22,8 +22,6 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("name", models.CharField(max_length=20, verbose_name="Имя")),
-                ("surname", models.CharField(max_length=20, verbose_name="Фамилия")),
                 ("balance", models.FloatField(verbose_name="Баланс")),
                 ("is_active", models.BooleanField(default=True)),
             ],
