@@ -14,7 +14,7 @@ COPY . /app/
 #python -m pip install --upgrade pip &&
 #--dev --system --deploy
 
-RUN pipenv install --system --deploy --ignore-pipfile
+RUN pipenv update && pipenv install --system --deploy --ignore-pipfile
 #раcкомментить если хуйня выше не шпилит
 #RUN pipenv lock && pipenv requirements > requirements.txt && python3 -m pip install -r requirements.txt
 #    cd .. && apk --purge del .build-deps
