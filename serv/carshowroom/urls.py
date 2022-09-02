@@ -6,4 +6,5 @@ router = SimpleRouter()
 router.register('', CarShowroomViewSet)
 router.register('prices', CarPriceRelationShowroomViewSet)
 
-urlpatterns = router.urls
+urlpatterns = []
+urlpatterns += router.urls
