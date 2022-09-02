@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_countries',
     'rest_framework',
+    'rest_framework_simplejwt',
     'carshowroom',
     'customer',
     'supplier',
