@@ -1,8 +1,8 @@
-from rest_framework.routers import SimpleRouter
+from rest_framework.routers import DefaultRouter
 
 from carshowroom.views import CarShowroomViewSet, CarPriceRelationShowroomViewSet
 
-router = SimpleRouter()
+router = DefaultRouter()
 router.register('', CarShowroomViewSet)
 router.register('prices', CarPriceRelationShowroomViewSet)
 
