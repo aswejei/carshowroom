@@ -10,8 +10,8 @@ django-countries = "*"
 django = "==3.2"
 django-rest-swagger = "*"
 drf-yasg = "*"
-django-debug-toolbar = "*"
 djangorestframework-simplejwt = "*"
+django-debug-toolbar = "==3.4.0"
 
 [dev-packages]
 black = "*"
