@@ -25,6 +25,7 @@ from drf_yasg import openapi
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 import carshowroom
+from config import settings
 from supplier.views import CarViewSet, CarPriceRelationSupplierViewSet, SupplierViewSet
 
 # router = DefaultRouter()
@@ -54,3 +55,10 @@ urlpatterns = [
     path('api/token', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+        # Если вы используете django до 2.0, вы можете использовать следующее, а также можете использовать после 2.0, если вы импортируете url
+        # url(r'^__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
