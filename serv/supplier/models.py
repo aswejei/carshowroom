@@ -81,7 +81,12 @@ class CarPriceRelation(models.Model):
         related_name="%(app_label)s_car_prices"
     )
     price = models.FloatField(verbose_name='Цена')
-    price_with_discount = models.FloatField(verbose_name='Цена со скидкой', blank=True, default=None, null=True)
+    price_with_discount = models.FloatField(
+        verbose_name='Цена со скидкой',
+        blank=True,
+        default=None,
+        null=True
+    )
     date_added = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
 
