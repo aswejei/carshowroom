@@ -12,9 +12,14 @@ django-rest-swagger = "*"
 drf-yasg = "*"
 djangorestframework-simplejwt = "*"
 django-debug-toolbar = "==3.4.0"
+django-filter = "*"
+celery = "==5.1.2"
+redis = "==3.5.3"
+djoser = "*"
+gunicorn = "*"
 
 [dev-packages]
 black = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.11"
