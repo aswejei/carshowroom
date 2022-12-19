@@ -1,13 +1,11 @@
 from django.db import models
 
-
+from user.models import User
 # Create your models here.
 
 
 class Customer(models.Model):
-    #related_user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, verbose_name='Покупатель')
     balance = models.FloatField(verbose_name='Баланс')
     is_active = models.BooleanField(default=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='customer_profile')
 
-    # def __str__(self):
-    #     return f'{self.name} {self.surname}'
