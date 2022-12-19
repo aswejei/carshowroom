@@ -17,3 +17,4 @@ class CustomerViewSet(SafeDeleteModelMixin,
                       GenericViewSet):
     queryset = Customer.objects.filter(is_active=True)
     serializer_class = CustomerSerializer
+
