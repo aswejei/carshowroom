@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from core.validators import is_price_positive
 from supplier.models import Supplier, Car, ShowroomSupplierOffers, CarPriceRelationSupplier
 
 
@@ -16,33 +17,54 @@ class CarSerializer(serializers.ModelSerializer):
 
 class CarPriceRelationSerializer(serializers.ModelSerializer):
     car = CarSerializer(many=False)
-    price = serializers.IntegerField()
+    price = serializers.IntegerField(validators=[is_price_positive])
 
     class Meta:
         model = CarPriceRelationSupplier
-        fields = ['car',
-                  'price',
-                  'id']
+        fields = [
+            'car',
+            'price',
+            'id',
+        ]
 
 
-class SupplierSerializer(serializers.ModelSerializer):
-    car_prices = CarPriceRelationSerializer(many=True)
-    date_founded = serializers.DateField()
+class SupplierSerializerGet(serializers.ModelSerializer):
+    cars = CarPriceRelationSerializer(many=True)
 
     class Meta:
         model = Supplier
         fields = ['name',
                   'date_founded',
                   'description',
-                  'car_prices',
+                  'cars',
+                  'id']
+        depth = 1
+
+
+class SupplierSerializerPost(serializers.ModelSerializer):
+    class Meta:
+        model = Supplier
+        fields = ['name',
+                  'date_founded',
+                  'description',
                   'id']
 
 
-class CarPriceRelationSupplierSerializer(serializers.ModelSerializer):
-    car = CarSerializer(many=False)
-    supplier = SupplierSerializer(many=False,
-                                  context={'exclude_fields': ['car_prices']})
-    price = serializers.IntegerField()
+class CarPriceRelationSupplierSerializerGet(serializers.ModelSerializer):
+    class Meta:
+        model = CarPriceRelationSupplier
+        fields = [
+            'car',
+            'supplier',
+            'price',
+            'price_with_discount',
+            'id'
+        ]
+        depth = 1
+
+
+class CarPriceRelationSupplierSerializerPost(serializers.ModelSerializer):
+    price = serializers.FloatField(validators=[is_price_positive])
 
     class Meta:
         model = CarPriceRelationSupplier
@@ -50,9 +72,27 @@ class CarPriceRelationSupplierSerializer(serializers.ModelSerializer):
                   'price',
                   'supplier',
                   'id']
+        validators = [
+            serializers.UniqueTogetherValidator(
+                queryset=model.objects.filter(is_active=True),
+                fields=('car_id', 'supplier_id'),
+                message="You can not create car-price record twice"
+            )
+        ]
 
 
-class ShowroomSupplierOffersSerializer(serializers.ModelSerializer):
+class ShowroomSupplierOffersSerializerGet(serializers.ModelSerializer):
+    class Meta:
+        model = ShowroomSupplierOffers
+        fields = ['car',
+                  'showroom',
+                  'supplier',
+                  'price',
+                  'date']
+        depth = 1
+
+
+class ShowroomSupplierOffersSerializerPost(serializers.ModelSerializer):
     class Meta:
         model = ShowroomSupplierOffers
         fields = ['car',
