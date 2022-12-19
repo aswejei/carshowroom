@@ -1,28 +1,119 @@
 version: '3.1'
 
 services:
+  
+  nginx:
+    container_name: nginx
+    image: nginx:1.13
+    ports:
+      - "80:80"
+    volumes:
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+      - static_volume:/app/serv/static
+    depends_on:
+      - serv
+    networks:
+      - nginx_network
+
   serv:
     container_name: serv
     build: ./serv
     volumes:
       - .:/app
-    ports:
-      - "8000:8000"
+      - static_volume:/app/serv/static
+#    ports:
+#      - "8000:8000"
+    expose:
+      - "8000"
     env_file:
       - serv/.env
     depends_on:
       - db
+      - redis
+    networks:
+      - db_network
+      - nginx_network
     command: sh ./serv/docker-entrypoint.sh
+  
   db:
+    container_name: db
     image: postgres
-#    restart: always
+    #restart: always
     env_file:
       - ./serv/.env
-    ports:
-      - "5433:5432"
+    expose:
+      - "5433"
+#    ports:
+#      - "5433:5432"
     volumes:
       - trainee_volume:/var/lib/postgresql/data
+    networks:
+      - db_network
+  
+  redis:
+    container_name: redis
+    image: redis:alpine
+    expose:
+      - "6379"
+#    ports:
+#      - "6379:6379"
+    networks:
+      - redis_network
+  
+  celery:
+    container_name: celery
+    working_dir: /app/serv
+    build: ./serv
+    volumes:
+      - .:/app
+    environment:
+      - DEBUG = 1
+      - SECRET_KEY = django-insecure-t9dqwb3lf^+tmwhev$$7-(o5&=u!p*@f!2n1p+gtt32ja$$rya97
+      - DJANGO_ALLOWED_HOSTS = localhost 127.0.0.1 [::8000]
+    networks:
+      - db_network
+      - redis_network
+    depends_on:
+      - nginx
+      - redis
+      - serv
+    command: celery -A 'config' worker -l info
+
+  celery-beat:
+    container_name: celery_beat
+    working_dir: /app/serv
+    build: ./serv
+    volumes:
+      - .:/app
+    environment:
+      - DEBUG = 1
+      - SECRET_KEY = django-insecure-t9dqwb3lf^+tmwhev$$7-(o5&=u!p*@f!2n1p+gtt32ja$$rya97
+      - DJANGO_ALLOWED_HOSTS = localhost 127.0.0.1 [::8000]
+    networks:
+      - db_network
+      - redis_network
+    depends_on:
+      - nginx
+      - redis
+      - serv
+    command: celery -A 'config' beat -l info
 
 volumes:
+  redis_data: 
+    driver: local
+  
   trainee_volume:
     driver: local
+  
+  static_volume:
+    driver: local
+
+networks:
+  nginx_network:
+    driver: bridge
+  
+  db_network:
+    driver: bridge
+  
+  redis_network:
+    driver: bridge
