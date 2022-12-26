@@ -1,6 +1,6 @@
 from django.db import models
 
-from user.models import User
+from serv.user.models import User
 
 
 class Supplier(models.Model):
@@ -70,7 +70,13 @@ class Car(models.Model):
         return f'{self.brand} {self.model} (color: {self.color})'
 
     class Meta:
-        unique_together = ['brand', 'model', 'color', 'engine_v', 'car_body']
+        unique_together = [
+            'brand',
+            'model',
+            'color',
+            'engine_v',
+            'car_body'
+        ]
 
 
 class CarPriceRelation(models.Model):

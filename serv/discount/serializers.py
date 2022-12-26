@@ -1,9 +1,9 @@
 from rest_framework import serializers
 
-from serv.discount.models import CarShowroomDiscount, SupplierDiscount
 from serv.core.validators import is_proper_percent
-from serv.carshowroom.serializers import CarPriceRelationShowroomSerializerGet, CarPriceRelationShowroomSerializerPost
+from serv.discount.models import CarShowroomDiscount, SupplierDiscount
 from serv.supplier.serializers import CarPriceRelationSupplierSerializerGet
+from serv.carshowroom.serializers import CarPriceRelationShowroomSerializerGet
 
 
 class ShowroomDiscountSerializerGet(serializers.ModelSerializer):
@@ -11,7 +11,10 @@ class ShowroomDiscountSerializerGet(serializers.ModelSerializer):
 
     class Meta:
         model = CarShowroomDiscount
-        fields = ['discount', 'discounted_record']
+        fields = [
+            'discount',
+            'discounted_record'
+        ]
         depth = 1
 
 
@@ -31,7 +34,10 @@ class SupplierDiscountSerializerGet(serializers.ModelSerializer):
 
     class Meta:
         model = SupplierDiscount
-        fields = ['discount', 'discounted_record']
+        fields = [
+            'discount',
+            'discounted_record'
+        ]
         depth = 1
 
 

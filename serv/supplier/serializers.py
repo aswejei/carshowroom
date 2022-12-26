@@ -1,18 +1,20 @@
 from rest_framework import serializers
 
-from core.validators import is_price_positive
-from supplier.models import Supplier, Car, ShowroomSupplierOffers, CarPriceRelationSupplier
+from serv.core.validators import is_price_positive
+from serv.supplier.models import Supplier, Car, ShowroomSupplierOffers, CarPriceRelationSupplier
 
 
 class CarSerializer(serializers.ModelSerializer):
     class Meta:
         model = Car
-        fields = ['brand',
-                  'model',
-                  'color',
-                  'engine_v',
-                  'car_body',
-                  'id']
+        fields = [
+            'brand',
+            'model',
+            'color',
+            'engine_v',
+            'car_body',
+            'id'
+        ]
 
 
 class CarPriceRelationSerializer(serializers.ModelSerializer):
@@ -33,21 +35,25 @@ class SupplierSerializerGet(serializers.ModelSerializer):
 
     class Meta:
         model = Supplier
-        fields = ['name',
-                  'date_founded',
-                  'description',
-                  'cars',
-                  'id']
+        fields = [
+            'name',
+            'date_founded',
+            'description',
+            'cars',
+            'id'
+        ]
         depth = 1
 
 
 class SupplierSerializerPost(serializers.ModelSerializer):
     class Meta:
         model = Supplier
-        fields = ['name',
-                  'date_founded',
-                  'description',
-                  'id']
+        fields = [
+            'name',
+            'date_founded',
+            'description',
+            'id'
+        ]
 
 
 class CarPriceRelationSupplierSerializerGet(serializers.ModelSerializer):
@@ -68,10 +74,12 @@ class CarPriceRelationSupplierSerializerPost(serializers.ModelSerializer):
 
     class Meta:
         model = CarPriceRelationSupplier
-        fields = ['car',
-                  'price',
-                  'supplier',
-                  'id']
+        fields = [
+            'car',
+            'price',
+            'supplier',
+            'id'
+        ]
         validators = [
             serializers.UniqueTogetherValidator(
                 queryset=model.objects.filter(is_active=True),
@@ -84,19 +92,23 @@ class CarPriceRelationSupplierSerializerPost(serializers.ModelSerializer):
 class ShowroomSupplierOffersSerializerGet(serializers.ModelSerializer):
     class Meta:
         model = ShowroomSupplierOffers
-        fields = ['car',
-                  'showroom',
-                  'supplier',
-                  'price',
-                  'date']
+        fields = [
+            'car',
+            'showroom',
+            'supplier',
+            'price',
+            'date'
+        ]
         depth = 1
 
 
 class ShowroomSupplierOffersSerializerPost(serializers.ModelSerializer):
     class Meta:
         model = ShowroomSupplierOffers
-        fields = ['car',
-                  'showroom',
-                  'supplier',
-                  'price',
-                  'date']
+        fields = [
+            'car',
+            'showroom',
+            'supplier',
+            'price',
+            'date'
+        ]

@@ -1,7 +1,6 @@
 from django.db import models
 
-from user.models import User
-# Create your models here.
+from serv.user.models import User
 
 
 class Customer(models.Model):
