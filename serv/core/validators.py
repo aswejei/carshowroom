@@ -1,10 +1,8 @@
-import json
-import functools
 from typing import Dict
 
 from rest_framework import serializers
 
-from supplier.models import Car
+from serv.supplier.models import Car
 
 
 def is_proper_percent(value: float):

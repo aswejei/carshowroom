@@ -2,9 +2,9 @@ from abc import ABC
 
 from rest_framework import serializers
 
-from carshowroom.models import CarShowroom, CarPriceRelationShowroom, CustomerShowroomOffers
-from core.inner_serializers import CarPriceRelationShowroomSerializerGetNoShowroomField
-from core.validators import is_car_characteristics_valid, is_balance_positive, is_price_positive
+from serv.core.inner_serializers import CarPriceRelationShowroomSerializerGetNoShowroomField
+from serv.carshowroom.models import CarShowroom, CarPriceRelationShowroom, CustomerShowroomOffers
+from serv.core.validators import is_car_characteristics_valid, is_balance_positive, is_price_positive
 
 
 class CarShowroomSerializerGet(serializers.ModelSerializer):

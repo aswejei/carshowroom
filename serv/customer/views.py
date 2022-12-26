@@ -4,17 +4,19 @@ from django.shortcuts import render
 from rest_framework import mixins
 from rest_framework.viewsets import GenericViewSet
 
-from core.mixins import SafeDeleteModelMixin
-from customer.models import Customer
-from customer.serializers import CustomerSerializer
+from serv.core.mixins import SafeDeleteModelMixin
+from serv.customer.models import Customer
+from serv.customer.serializers import CustomerSerializer
 
 
-class CustomerViewSet(SafeDeleteModelMixin,
+class CustomerViewSet(
+                      SafeDeleteModelMixin,
                       mixins.ListModelMixin,
                       mixins.RetrieveModelMixin,
                       mixins.UpdateModelMixin,
                       mixins.CreateModelMixin,
-                      GenericViewSet):
+                      GenericViewSet
+                     ):
     queryset = Customer.objects.filter(is_active=True)
     serializer_class = CustomerSerializer
 

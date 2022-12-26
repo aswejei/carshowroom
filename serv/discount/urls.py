@@ -1,6 +1,6 @@
 from rest_framework.routers import DefaultRouter
 
-from discount.views import ShowroomDiscountViewSet, SupplierDiscountViewSet
+from serv.discount.views import ShowroomDiscountViewSet, SupplierDiscountViewSet
 
 router = DefaultRouter()
 router.register('showrooms', ShowroomDiscountViewSet)

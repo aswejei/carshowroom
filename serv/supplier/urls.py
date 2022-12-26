@@ -1,7 +1,7 @@
 from rest_framework.routers import DefaultRouter
 
-from supplier.views import CarPriceRelationSupplierViewSet
-from supplier.views import SupplierViewSet
+from serv.supplier.views import CarPriceRelationSupplierViewSet
+from serv.supplier.views import SupplierViewSet
 
 router = DefaultRouter()
 router.register('suppliers', SupplierViewSet)
