@@ -1,8 +1,6 @@
 from rest_framework import serializers
 
-from carshowroom.models import CarPriceRelationShowroom
-from supplier.models import CarPriceRelationSupplier
-from supplier.serializers import CarSerializer
+from serv.carshowroom.models import CarPriceRelationShowroom
 
 
 class CarPriceRelationShowroomSerializerGetNoShowroomField(serializers.ModelSerializer):

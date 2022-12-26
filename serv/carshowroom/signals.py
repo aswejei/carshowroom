@@ -1,8 +1,8 @@
 from django.db.models import signals
 from django.dispatch import receiver
 
-from carshowroom.models import CarPriceRelationShowroom
-from discount.models import CarShowroomDiscount
+from serv.discount.models import CarShowroomDiscount
+from serv.carshowroom.models import CarPriceRelationShowroom
 
 
 @receiver(signals.post_save, sender=CarShowroomDiscount)

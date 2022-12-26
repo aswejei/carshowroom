@@ -1,6 +1,6 @@
 from rest_framework.routers import DefaultRouter
 
-from carshowroom.views import CarShowroomViewSet, CarPriceRelationShowroomViewSet, CustomerShowroomOfferViewSet
+from serv.carshowroom.views import CarShowroomViewSet, CarPriceRelationShowroomViewSet, CustomerShowroomOfferViewSet
 
 router = DefaultRouter()
 router.register('carshowrooms', CarShowroomViewSet)

@@ -1,15 +1,10 @@
-import datetime
-
 import django.utils.timezone
-
-from supplier.models import CarPriceRelation
 
 from django.db import models
 from django_countries.fields import CountryField
 
-
-# Create your models here.
-from user.models import User
+from serv.user.models import User
+from serv.supplier.models import CarPriceRelation
 
 
 class CarShowroom(models.Model):
@@ -23,8 +18,14 @@ class CarShowroom(models.Model):
         max_length=500,
         verbose_name='Описание'
     )
-    balance = models.FloatField(verbose_name='Баланс автосалона', default=1000000)
-    budget = models.FloatField(verbose_name='Процент от баланса который тратится на закупки', default=0.1)
+    balance = models.FloatField(
+        verbose_name='Баланс автосалона',
+        default=1000000
+    )
+    budget = models.FloatField(
+        verbose_name='Процент от баланса который тратится на закупки',
+        default=0.1
+    )
     staff = models.ManyToManyField(User)
     is_active = models.BooleanField(default=True)
 
@@ -79,5 +80,11 @@ class CarPriceRelationShowroom(CarPriceRelation):
         return f'{self.car.brand} {self.car.model} - {self.price}$ : {self.showroom.name}'
 
     class Meta:
-        ordering = ['showroom', 'car']
-        unique_together = ['showroom', 'car']
+        ordering = [
+            'showroom',
+            'car'
+        ]
+        unique_together = [
+            'showroom',
+            'car'
+        ]
