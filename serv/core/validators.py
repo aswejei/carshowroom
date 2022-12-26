@@ -11,10 +11,8 @@ def is_proper_percent(value: float):
 
 
 def is_car_characteristics_valid(json_dict: Dict):
-    invest_dict: Dict = json_dict
-    key_set = set(invest_dict.keys())
-    fields_list = list(i.name for i in Car._meta.local_fields)
-    fields_set = set(fields_list)
+    key_set = set(json_dict.keys())
+    fields_set = {i.name for i in Car._meta.local_fields}
     if not fields_set.issuperset(key_set):
         raise serializers.ValidationError("Json string fields are invalid")
 
