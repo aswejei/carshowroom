@@ -12,15 +12,13 @@ def parse_dict_to_Q_expr(json_str: Dict) -> Q:
     car_characteristics_dict = json_str.copy()
     final_q = Q()
     for key in car_characteristics_dict:
-        if type(car_characteristics_dict[key]) == List:
+        if isinstance(car_characteristics_dict[key],List):
             local_q = Q()
             for val in car_characteristics_dict[key]:
                 local_q = local_q | Q(**{f'car__{key}': val})
             final_q = final_q & local_q
-        elif type(car_characteristics_dict[key]) != Dict:
+        elif not isinstance(car_characteristics_dict[key], Dict):
             final_q = final_q & Q(**{f'car__{key}': car_characteristics_dict[key]})
-        else:
-            pass
     return final_q
 
 

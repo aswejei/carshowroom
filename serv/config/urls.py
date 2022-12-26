@@ -1,14 +1,12 @@
-from django.conf import settings
-from django.conf.urls.static import static
-from django.contrib import admin
-from django.urls import path, include, re_path
-from rest_framework import permissions
-
-from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from django.contrib import admin
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from django.urls import path, include, re_path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-from config import settings
+from serv.config import settings
+
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -33,12 +31,12 @@ urlpatterns = [
     path(r'api/auth/', include('djoser.urls')),
     path(r'api/auth/', include('djoser.urls.jwt')),
 ]
+
 if settings.DEBUG:
     import debug_toolbar
 
     urlpatterns = [
-                      path('__debug__/', include(debug_toolbar.urls)),
-                      re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-                  ] + urlpatterns
+        path('__debug__/', include(debug_toolbar.urls)),
+        re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    ] + urlpatterns
 
-    # urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + urlpatterns
